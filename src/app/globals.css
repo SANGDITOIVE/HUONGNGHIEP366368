@@ -1,0 +1,170 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap");
+@import url("https://db.onlinewebfonts.com/c/304a6edcec9f8858eeaafc2ac18243f4?family=Askan+Light");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+	/* Bảng màu "trưởng thành": navy + coral + off-white */
+	--background: 39 38% 97%;
+	--foreground: 215 32% 16%;
+	--card: 40 40% 99%;
+	--card-foreground: 215 32% 16%;
+	--primary: 214 60% 22%;
+	--primary-foreground: 39 38% 97%;
+	--secondary: 40 24% 93%;
+	--secondary-foreground: 215 32% 16%;
+	--muted: 40 24% 93%;
+	--muted-foreground: 215 16% 38%;
+	--accent: 9 85% 63%;
+	--accent-foreground: 0 0% 100%;
+	--border: 40 22% 87%;
+	--input: 40 22% 87%;
+	--ring: 214 60% 22%;
+	--radius: 0.75rem;
+}
+
+* {
+	border-color: hsl(var(--border));
+}
+
+body {
+	background-color: hsl(var(--background));
+	background-image:
+		radial-gradient(55rem 55rem at 110% -10%, hsl(214 60% 22% / 0.10), transparent 60%),
+		radial-gradient(45rem 45rem at -10% 5%, hsl(9 85% 63% / 0.12), transparent 55%),
+		radial-gradient(40rem 40rem at 50% 120%, hsl(39 38% 80% / 0.30), transparent 60%);
+	background-attachment: fixed;
+	color: hsl(var(--foreground));
+	-webkit-font-smoothing: antialiased;
+}
+
+@layer utilities {
+	.text-balance {
+		text-wrap: balance;
+	}
+	.animate-fade-in-up {
+		animation: fadeInUp 0.4s ease-out both;
+	}
+	.animate-fade-in {
+		animation: fadeIn 0.35s ease-out both;
+	}
+}
+
+@keyframes fadeInUp {
+	from {
+		opacity: 0;
+		transform: translateY(12px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.animate-fade-in-up,
+	.animate-fade-in {
+		animation: none;
+	}
+}
+
+/* ===== Thương hiệu HoaTieu: hiệu ứng nền alpha ở hero ===== */
+.alpha-wave {
+	position: absolute;
+	inset: 0;
+	overflow: hidden;
+	pointer-events: none;
+	--p: 0;
+}
+.alpha-wave__svg {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 130%;
+	height: 150%;
+	transform: translate(-50%, -50%) scaleX(calc(0.7 + 0.3 * var(--p)));
+	transform-origin: center;
+	opacity: calc(0.3 + 0.7 * var(--p));
+	transition: opacity 0.25s ease-out;
+}
+.alpha-wave__ribbon {
+	fill: none;
+	stroke-width: 5;
+	stroke-linecap: round;
+	opacity: 0.55;
+}
+.alpha-wave__ribbon--yellow {
+	stroke: #fde68a;
+	animation: alphaDrift 9s ease-in-out infinite;
+}
+.alpha-wave__ribbon--white {
+	stroke: #ffffff;
+	animation: alphaDrift 12s ease-in-out infinite reverse;
+}
+.alpha-wave__a {
+	fill: #ef4444;
+	font-family: Georgia, "Times New Roman", serif;
+	font-style: italic;
+	transform-box: fill-box;
+	transform-origin: center;
+}
+.alpha-wave__a--s1 { font-size: 90px; opacity: 0.16; animation: alphaSway 7s ease-in-out infinite; }
+.alpha-wave__a--s2 { font-size: 120px; opacity: 0.14; animation: alphaSway 8.5s ease-in-out infinite reverse; }
+.alpha-wave__a--big { font-size: 240px; opacity: 0.2; animation: alphaSway 8s ease-in-out infinite; }
+.alpha-wave__a--s3 { font-size: 120px; opacity: 0.14; animation: alphaSway 9s ease-in-out infinite; }
+.alpha-wave__a--s4 { font-size: 90px; opacity: 0.16; animation: alphaSway 7.5s ease-in-out infinite reverse; }
+@keyframes alphaDrift {
+	0%, 100% { transform: translateX(0); }
+	50% { transform: translateX(-34px); }
+}
+@keyframes alphaSway {
+	0%, 100% { transform: translateY(0) rotate(-4deg); }
+	50% { transform: translateY(-16px) rotate(4deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+	.alpha-wave__ribbon,
+	.alpha-wave__a { animation: none !important; }
+}
+
+/* ===== Glassmorphism: kính mờ xuyên thấu sang trọng cho toàn site ===== */
+/* Để ngoài @layer để chắc chắn thắng quy tắc * { border-color } mặc định. */
+.glass {
+	background-color: hsl(var(--card) / 0.62);
+	-webkit-backdrop-filter: blur(14px) saturate(160%);
+	backdrop-filter: blur(14px) saturate(160%);
+	border: 1px solid hsl(0 0% 100% / 0.55);
+	box-shadow: 0 10px 30px -16px hsl(222 47% 11% / 0.22);
+}
+.glass-header {
+	background-color: hsl(var(--background) / 0.70);
+	-webkit-backdrop-filter: blur(16px) saturate(160%);
+	backdrop-filter: blur(16px) saturate(160%);
+	border-bottom: 1px solid hsl(0 0% 100% / 0.40);
+}
+
+/* ===== Font tiêu đề tân cổ điển (Lora) — chuẩn dấu Tiếng Việt ===== */
+h1, h2, h3, h4, h5, h6, .font-heading {
+	font-family: var(--font-heading), Georgia, "Times New Roman", serif;
+}
+
+/* Sidebar thu gọn (V33): phần nội dung chính tự chỉnh lề trái theo chiều rộng sidebar. */
+@media (min-width: 1024px) {
+	.app-shell {
+		padding-left: 15rem;
+		transition: padding-left 0.2s ease;
+	}
+	html[data-sidebar="collapsed"] .app-shell {
+		padding-left: 7rem;
+	}
+}
